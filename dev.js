@@ -1,10 +1,10 @@
 import { readFileSync } from 'fs'
-import { networkInterfaces } from 'os'
 import express from 'express'
 import { createServer as createViteServer } from 'vite'
+import portfinder from 'portfinder'
+import ip from 'ip'
 
 const PORT = 5173
-const IPv4 = [].concat(...Object.values(networkInterfaces())).find(x => !x.internal && x.family === 'IPv4')?.address
 
 // https://cn.vitejs.dev/guide/ssr.html#setting-up-the-dev-server
 async function createServer() {
@@ -30,9 +30,11 @@ async function createServer() {
     }
   })
 
-  app.listen(PORT, () => {
-    console.info('\x1b[36m%s\x1b[0m', `http://localhost:${PORT}/`)
-    console.info('\x1b[36m%s\x1b[0m', `http://${IPv4}:${PORT}/`)
+  const port = await portfinder.getPortPromise({ port: PORT })
+  const IPv4 = ip.address()
+  app.listen(port, () => {
+    console.info('\x1b[36m%s\x1b[0m', `http://localhost:${port}/`)
+    console.info('\x1b[36m%s\x1b[0m', `http://${IPv4}:${port}/`)
   })
 }
 
