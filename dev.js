@@ -3,8 +3,10 @@ import express from 'express'
 import { createServer as createViteServer } from 'vite'
 import portfinder from 'portfinder'
 import ip from 'ip'
+import { consola } from 'consola'
+import { colors } from 'consola/utils'
 
-const PORT = 5173
+const PORT = 6173
 
 // https://cn.vitejs.dev/guide/ssr.html#setting-up-the-dev-server
 async function createServer() {
@@ -33,8 +35,8 @@ async function createServer() {
   const port = await portfinder.getPortPromise({ port: PORT })
   const IPv4 = ip.address()
   app.listen(port, () => {
-    console.info('\x1b[36m%s\x1b[0m', `http://localhost:${port}/`)
-    console.info('\x1b[36m%s\x1b[0m', `http://${IPv4}:${port}/`)
+    consola.log(colors.cyan(`  ➜  http://localhost:${port}/`))
+    consola.log(colors.cyan(`  ➜  http://${IPv4}:${port}/`))
   })
 }
 
