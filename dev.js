@@ -9,6 +9,7 @@ import { colors } from 'consola/utils'
 const PORT = 6173
 
 // https://cn.vitejs.dev/guide/ssr.html#setting-up-the-dev-server
+// TODO routerBase https://github.com/bluwy/create-vite-extra/blob/master/template-ssr-vanilla/server.js
 async function createServer() {
   const app = express()
   const vite = await createViteServer({

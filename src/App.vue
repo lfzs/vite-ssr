@@ -1,4 +1,9 @@
 <template>
+<RouterView v-slot="{ Component }">
+  <Suspense>
+    <component :is="Component" />
+  </Suspense>
+</RouterView>
 <button @click="() => count++">{{ count }}</button>
 </template>
 
