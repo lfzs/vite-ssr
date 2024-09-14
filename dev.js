@@ -5,8 +5,7 @@ import portfinder from 'portfinder'
 import ip from 'ip'
 import { consola } from 'consola'
 import { colors } from 'consola/utils'
-
-const PORT = 6173
+import { DEV_PORT } from './src/constants/env.js'
 
 // https://cn.vitejs.dev/guide/ssr.html#setting-up-the-dev-server
 // TODO routerBase https://github.com/bluwy/create-vite-extra/blob/master/template-ssr-vanilla/server.js
@@ -16,9 +15,7 @@ async function createServer() {
     server: { middlewareMode: true },
     appType: 'custom',
   })
-  app.use((req, res, next) => {
-    vite.middlewares.handle(req, res, next)
-  })
+  app.use(vite.middlewares)
   app.use('*', async (req, res, next) => {
     const url = req.originalUrl
     try {
@@ -33,7 +30,7 @@ async function createServer() {
     }
   })
 
-  const port = await portfinder.getPortPromise({ port: PORT })
+  const port = await portfinder.getPortPromise({ port: DEV_PORT })
   const IPv4 = ip.address()
   app.listen(port, () => {
     consola.log(colors.cyan(`  ➜  http://localhost:${port}/`))

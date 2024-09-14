@@ -1,4 +1,4 @@
-import { join } from 'path'
+import { join, resolve } from 'path'
 import { copyFileSync } from 'fs'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
@@ -9,12 +9,20 @@ const copyFile = () => ({
 })
 
 export default defineConfig(({ mode, isSsrBuild }) => {
+  const envDir = './env'
+
   return {
     plugins: [
       vue(),
       vueJsx(),
       isSsrBuild && copyFile()
     ].filter(Boolean),
+    envDir,
+    resolve: {
+      alias: {
+        '@': resolve('./src'),
+      },
+    },
     build: {
       ...(isSsrBuild ? {
         target: 'esnext',

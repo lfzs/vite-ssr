@@ -1,8 +1,9 @@
 import { readFileSync } from 'fs'
 import express from 'express'
 import sirv from  'sirv'
-import { render } from './server.js'
-const PORT = 6678
+import { render } from './src/server.js'
+import { SERVER_PORT } from './src/constants/env.js'
+
 const app = express()
 const template = readFileSync('./index.html', 'utf8')
 
@@ -12,4 +13,4 @@ app.get('*', async (req, res) => {
   res.send(template.replace('<!--ssr-outlet-->', html))
 })
 
-app.listen(PORT)
+app.listen(SERVER_PORT)
