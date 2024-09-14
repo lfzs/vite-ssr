@@ -9,7 +9,7 @@ export default defineComponent({
     count.value = 10
 
     return () => <div>
-      <button onClick={() => count++}>{ count.value }</button>
+      <button onClick={() => count.value++}>{ count.value }</button>
     </div>
   }
 })
