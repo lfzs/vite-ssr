@@ -1,5 +1,6 @@
 import { readFileSync } from 'fs'
 import express from 'express'
+import { renderSSRHead } from '@unhead/ssr'
 import { createServer as createViteServer } from 'vite'
 import portfinder from 'portfinder'
 import ip from 'ip'
@@ -16,14 +17,18 @@ async function createServer() {
     appType: 'custom',
   })
   app.use(vite.middlewares)
-  app.use('*', async (req, res, next) => {
+  app.use(async (req, res, next) => {
     const url = req.originalUrl
     try {
       let template = readFileSync('./index.html', 'utf8')
       template = await vite.transformIndexHtml(url, template)
       const { render } = await vite.ssrLoadModule('./src/server.js')
-      const { html } = await render({ req })
-      res.send(template.replace('<!--ssr-outlet-->', html))
+      const { html, head } = await render({ req })
+      const { headTags } = await renderSSRHead(head)
+      const data = template
+        .replace('<!--ssrOutlet-->', html)
+        .replace('<!--headTags-->', headTags)
+      res.send(data)
     } catch (e) {
       vite.ssrFixStacktrace(e)
       next(e)

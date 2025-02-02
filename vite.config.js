@@ -24,11 +24,20 @@ export default defineConfig(({ mode, isSsrBuild }) => {
       },
     },
     build: {
+      reportCompressedSize: false,
       ...(isSsrBuild ? {
         target: 'esnext',
         emptyOutDir: false,
         copyPublicDir: false,
-      } : {})
-    }
+      } : {
+        target: [
+          'es2022',
+          'edge120',
+          'firefox120',
+          'chrome120',
+          'safari16',
+        ],
+      })
+    },
   }
 })
