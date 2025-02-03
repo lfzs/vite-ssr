@@ -14,9 +14,9 @@
   import { onMounted } from 'vue'
   import { legacyLogicalPropertiesTransformer, StyleProvider, ConfigProvider, theme } from 'ant-design-vue'
   import { token } from '@/static/style/antdv/token'
-
   onMounted(() => {
-    if (import.meta.env.DEV) {
+    console.info(import.meta.env)
+    if (import.meta.env.DEV && !import.meta.env.SSR) {
       const { token: computedToken } = theme.useToken()
       console.info('右键复制下一行到 computedToken.js 文件 ')
       console.info(computedToken.value)
