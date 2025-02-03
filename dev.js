@@ -17,7 +17,7 @@ async function createServer() {
     appType: 'custom',
   })
   app.use(vite.middlewares)
-  app.use(async (req, res, next) => {
+  app.use('*all', async (req, res, next) => {
     const url = req.originalUrl
     try {
       let template = readFileSync('./index.html', 'utf8')
@@ -25,9 +25,7 @@ async function createServer() {
       const { render } = await vite.ssrLoadModule('./src/server.js')
       const { html, head } = await render({ req })
       const { headTags } = await renderSSRHead(head)
-      const data = template
-        .replace('<!--ssrOutlet-->', html)
-        .replace('<!--headTags-->', headTags)
+      const data = template.replace('<!--ssrOutlet-->', html).replace('<!--headTags-->', headTags)
       res.send(data)
     } catch (e) {
       vite.ssrFixStacktrace(e)

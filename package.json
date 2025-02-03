@@ -4,24 +4,38 @@
   "type": "module",
   "scripts": {
     "dev": "node dev",
-    "build:test": "vite build --mode test && vite build --mode test --ssr index.js"
+    "build:test": "vite build --mode test && vite build --mode test --ssr index.js",
+    "lint": "eslint --max-warnings 0",
+    "format": "prettier . --write",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "**/*": [
+      "eslint --max-warnings 0 --no-warn-ignored",
+      "prettier --write --ignore-unknown"
+    ]
   },
   "engines": {
     "node": "23.x",
     "pnpm": "9.x"
   },
   "dependencies": {
+    "@jzfe/eslint-config-vue": "^2.0.6",
     "@unhead/ssr": "^1.11.18",
     "@unhead/vue": "^1.11.18",
     "@vitejs/plugin-vue": "5.2.1",
     "@vitejs/plugin-vue-jsx": "4.1.1",
     "@vueuse/core": "^12.5.0",
+    "ant-design-vue": "^4.2.6",
     "consola": "3.4.0",
+    "eslint": "^9.19.0",
     "express": "5.0.1",
+    "husky": "^9.1.7",
     "ip": "2.0.1",
     "less": "^4.2.2",
-    "normalize.css": "^8.0.1",
+    "lint-staged": "^15.4.3",
     "portfinder": "1.0.32",
+    "prettier": "^3.4.2",
     "vite": "6.0.11",
     "vue": "3.5.13",
     "vue-router": "4.5.0"

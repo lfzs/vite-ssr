@@ -1,7 +1,8 @@
 import { createSSRApp } from 'vue'
 import { createHead } from '@unhead/vue'
-import 'normalize.css'
+import 'ant-design-vue/dist/reset.css'
 import '@/static/style/flex.less'
+import '@/static/style/reset.less'
 import App from './App.vue'
 import { createRouter } from './router'
 

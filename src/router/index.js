@@ -6,6 +6,4 @@ function createRouter() {
   return router
 }
 
-export {
-  createRouter,
-}
+export { createRouter }

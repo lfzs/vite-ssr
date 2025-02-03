@@ -1,6 +1,8 @@
 // 收集路由配置
 const modules = import.meta.glob('@/views/**/{r,R}oute.js*', { eager: true })
-const viewsRoute = Object.values(modules).map(i => i.default ?? i).flat()
+const viewsRoute = Object.values(modules)
+  .map(i => i.default ?? i)
+  .flat()
 
 const routes = [
   ...viewsRoute,
@@ -11,6 +13,4 @@ const routes = [
   },
 ]
 
-export {
-  routes,
-}
+export { routes }

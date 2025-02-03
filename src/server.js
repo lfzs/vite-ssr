@@ -10,6 +10,4 @@ const render = async ({ req }) => {
   return { html, head }
 }
 
-export {
-  render
-}
+export { render }
