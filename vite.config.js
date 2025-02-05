@@ -6,7 +6,10 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import computedToken from './src/static/style/antdv/computedToken'
 import vars from './src/static/style/vars'
 const copyFile = () => ({
-  buildEnd: () => ['./package.json', './pnpm-lock.yaml'].forEach(path => copyFileSync(path, join('dist', path))),
+  buildEnd: () =>
+    ['./package.json', './pnpm-lock.yaml', 'ecosystem.config.js'].forEach(path =>
+      copyFileSync(path, join('dist', path)),
+    ),
 })
 
 export default defineConfig(({ isSsrBuild }) => {

@@ -4,7 +4,9 @@
   "type": "module",
   "scripts": {
     "dev": "node dev",
-    "build:test": "vite build --mode test && vite build --mode test --ssr index.js",
+    "build:production": "vite build --mode production && node ./scripts/extractAntdvStyle.js && vite build --mode production --ssr index.js",
+    "rsync:production": "rsync -av dist/ root@45.32.42.20:/opt/www/ssr-kit",
+    "rsync:ngconf": "rsync -av config/ng/ root@45.32.42.20:/etc/nginx/conf.d",
     "lint": "eslint --max-warnings 0",
     "format": "prettier . --write",
     "prepare": "husky"
@@ -17,7 +19,7 @@
   },
   "engines": {
     "node": "23.x",
-    "pnpm": "9.x"
+    "pnpm": "10.x"
   },
   "dependencies": {
     "@jzfe/eslint-config-vue": "^2.0.6",
@@ -30,6 +32,7 @@
     "consola": "3.4.0",
     "eslint": "^9.19.0",
     "express": "5.0.1",
+    "glob": "^11.0.1",
     "husky": "^9.1.7",
     "ip": "2.0.1",
     "less": "^4.2.2",
